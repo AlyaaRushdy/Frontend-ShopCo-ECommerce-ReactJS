@@ -11,7 +11,6 @@ function Cart({ products, dispatch }) {
   const handleApplyButton = (e) => {
     e.preventDefault();
   };
-  console.log(products);
   return (
     <>
       {!products.length && <EmptyCart />}
@@ -25,7 +24,7 @@ function Cart({ products, dispatch }) {
                   {products.map((product, index) => (
                     <CartItem
                       key={product.id}
-                      productObject={product}
+                      product={product}
                       onDelete={() => {
                         dispatch({ type: "DELETE", product });
                       }}
