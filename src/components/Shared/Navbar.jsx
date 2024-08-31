@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
+import logo from "./../../assets/logo.png";
+
 function Navbar(props) {
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -29,11 +31,7 @@ function Navbar(props) {
             <span className="navbar-toggler-icon"></span>
           </button>
           <NavLink className="navbar-brand p-0 m-0" to={"/"}>
-            <img
-              src="../src/assets/logo.png"
-              alt="SHOP.CO"
-              className="align-top"
-            />
+            <img src={logo} alt="SHOP.CO" className="align-top" />
           </NavLink>
 
           <div className="collapse navbar-collapse navbarSupportedContent flex-grow-0">

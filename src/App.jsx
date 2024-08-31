@@ -4,6 +4,10 @@ import { Route, Routes } from "react-router-dom";
 // import { productsArray } from "./services/productsArray";
 import reducer from "./services/reducerFunction";
 
+import menImg from "./assets/men.png";
+import womenImg from "./assets/women.png";
+import accessoriesImg from "./assets/accessories.png";
+
 import SignUpNav from "./components/Shared/SignUpNav";
 import Navbar from "./components/Shared/Navbar";
 import Home from "./components/Pages/Home";
@@ -47,7 +51,7 @@ function App() {
             <Products products={menProducts}>
               <div className="row">
                 <img
-                  src="./src/assets/men.png"
+                  src={menImg}
                   alt="Men"
                   className="pb-4 col-12 col-lg-8 mx-auto"
                 />
@@ -61,7 +65,7 @@ function App() {
             <Products products={womenProducts}>
               <div className="row">
                 <img
-                  src="./src/assets/women.png"
+                  src={womenImg}
                   alt="Women"
                   className="pb-4 col-12 col-lg-8 mx-auto"
                 />
@@ -76,7 +80,7 @@ function App() {
             <Products products={accessories}>
               <div className="row">
                 <img
-                  src="./src/assets/accessories.png"
+                  src={accessoriesImg}
                   alt="Women"
                   className="pb-4 col-12 col-lg-8 mx-auto"
                 />

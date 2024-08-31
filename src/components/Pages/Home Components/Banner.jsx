@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 
+import bannerImg from "../../../assets/banner.png";
+
 function Banner() {
   return (
     <>
@@ -40,11 +42,7 @@ function Banner() {
               </div>
             </div>
             <div className="col-12 col-lg-6">
-              <img
-                src="./src/assets/banner.png"
-                className="w-100"
-                alt="banner"
-              />
+              <img src={bannerImg} className="w-100" alt="banner" />
             </div>
           </div>
         </div>
