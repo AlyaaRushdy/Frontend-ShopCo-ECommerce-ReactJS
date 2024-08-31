@@ -3,12 +3,6 @@
 import { Link } from "react-router-dom";
 
 function Products({ products, children }) {
-  // const [products, setProducts] = useState([]);
-
-  // useEffect(() => {
-  //   setProducts(props.products);
-  // }, [props.products]);
-
   return (
     <>
       {products.length != 0 && (
