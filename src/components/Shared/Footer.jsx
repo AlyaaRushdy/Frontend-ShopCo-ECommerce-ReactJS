@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
+import logo from "./../../assets/logo.png";
 
 function Footer() {
   return (
     <>
       <div className="bg-body-tertiary">
-        <div className="container">
-          <div className="bg-black text-white px-4 py-5 p-lg-5 rounded-5">
+        <div className="footer-newsletter">
+          <div className="bg-black text-white px-4 py-5 p-lg-5 rounded-5 container">
             <div className="d-flex flex-wrap justify-content-between align-items-center row-gap-4">
               <div className="col-12 col-lg-6">
                 <p className="h2 m-0">STAY UPTO DATE ABOUT OUR LATEST OFFERS</p>
@@ -32,7 +33,8 @@ function Footer() {
               </div>
             </div>
           </div>
-
+        </div>
+        <div className="container">
           <footer className="py-5">
             <div className="d-flex flex-row justify-content-between align-items-center flex-wrap gap-3">
               <div>
@@ -40,7 +42,7 @@ function Footer() {
                   to="/"
                   className="d-flex align-items-center link-body-emphasis "
                 >
-                  <img src="./src/assets/logo.png" alt="SHOP.CO" />
+                  <img src={logo} alt="SHOP.CO" />
                 </Link>
               </div>
 

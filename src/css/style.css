@@ -38,6 +38,10 @@ h2,
   color: black !important;
   font-weight: bold;
 }
+
+.footer-newsletter {
+  background: linear-gradient(to bottom, #fff 50%, var(--bs-gray-100) 50%);
+}
 @media screen and (max-width: 540px) {
   .banner-h1 {
     font-size: 2.25rem;

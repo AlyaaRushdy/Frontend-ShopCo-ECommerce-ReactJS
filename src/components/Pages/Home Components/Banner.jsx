@@ -20,23 +20,19 @@ function Banner() {
               <Link className="btn btn-dark px-5 py-2 rounded-5" to="/">
                 Shop Now
               </Link>
-              <div className="my-4 d-flex flex-wrap flex-md-nowrap justify-content-center justify-content-md-start align-items-center row-gap-2">
-                <div>
-                  <p className="fs-3 fw-bold m-0">200+</p>
+              <div className="my-4 row row-cols-3 g-0 align-items-center justify-content-center text-center row-gap-3 row-cols-md-5">
+                <div className="flex-grow-1">
+                  <p className="h3 fw-bold">200+</p>
                   <span className="text-secondary">International Brands</span>
                 </div>
-
                 <div className="vr mx-2"></div>
-
-                <div>
-                  <p className="fs-3 fw-bold m-0">2000+</p>
+                <div className="flex-grow-1">
+                  <p className="h3 fw-bold">2000+</p>
                   <span className="text-secondary">High-Quality Products</span>
                 </div>
-
-                <div className="vr mx-3 d-none d-md-block"></div>
-
-                <div>
-                  <p className="fs-3 fw-bold m-0">30,000+</p>
+                <div className="vr mx-2 d-none d-md-block"></div>
+                <div className="flex-grow-1">
+                  <p className="h3 fw-bold">30,000+</p>
                   <span className="text-secondary">Happy Customers</span>
                 </div>
               </div>
