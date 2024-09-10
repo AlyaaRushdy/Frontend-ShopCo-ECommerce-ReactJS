@@ -1,13 +1,8 @@
-import { useReducer } from "react";
+// hooks and libs
 import { Route, Routes } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-// import { productsArray } from "./services/productsArray";
-import reducer from "./services/reducerFunction";
-
-import menImg from "./assets/men.png";
-import womenImg from "./assets/women.png";
-import accessoriesImg from "./assets/accessories.png";
-
+// components
 import SignUpNav from "./components/Shared/SignUpNav";
 import Navbar from "./components/Shared/Navbar";
 import Home from "./components/Pages/Home";
@@ -15,24 +10,30 @@ import Cart from "./components/Pages/Cart";
 import Login from "./components/Pages/Login";
 import SignUp from "./components/Pages/SignUp";
 import Products from "./components/Shared/Products";
+import ProductDetails from "./components/Pages/ProductDetails";
+import Footer from "./components/Shared/Footer";
+import SearchResults from "./components/Pages/SearchResults";
 
+// images
+import menImg from "./assets/men.png";
+import womenImg from "./assets/women.png";
+import accessoriesImg from "./assets/accessories.png";
+
+// products arrays
 import {
   accessories,
   menProducts,
   womenProducts,
 } from "./services/ProductsDummyJSONServices";
-import ProductDetails from "./components/Pages/ProductDetails";
-import Footer from "./components/Shared/Footer";
-import SearchResults from "./components/Pages/SearchResults";
 
 function App() {
-  const [products, dispatch] = useReducer(reducer, []);
+  const cart = useSelector((state) => state.cart);
 
   return (
     <>
       <SignUpNav />
       <Navbar
-        itemsCount={products.reduce((prev, curr) => {
+        itemsCount={cart.reduce((prev, curr) => {
           prev += curr.count;
           return prev;
         }, 0)}
@@ -40,10 +41,7 @@ function App() {
       <Routes>
         <Route element={<Home />} path="/" />
         <Route element={<SearchResults />} path="/search" />
-        <Route
-          element={<Cart dispatch={dispatch} products={products} />}
-          path="/cart"
-        />
+        <Route element={<Cart />} path="/cart" />
         <Route element={<Login />} path="/login" />
         <Route element={<SignUp />} path="/signup" />
         <Route
@@ -90,18 +88,7 @@ function App() {
           path="/accessories"
         />
 
-        <Route
-          element={
-            <ProductDetails
-              dispatch={dispatch}
-              cartItemsIds={products.reduce((prev, curr) => {
-                prev.push(curr.id);
-                return prev;
-              }, [])}
-            />
-          }
-          path="/product/:id"
-        />
+        <Route element={<ProductDetails />} path="/product/:id" />
       </Routes>
 
       <Footer />

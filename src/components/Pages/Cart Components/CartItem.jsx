@@ -1,8 +1,11 @@
 /* eslint-disable react/prop-types */
+import { useDispatch } from "react-redux";
+import { INCREMENT, DECREMENT, DELETE } from "../../../features/cartSlice";
 
 import { Link } from "react-router-dom";
 
-function CartItem({ product, onDelete, onIncrement, onDecrement, isLast }) {
+function CartItem({ product, isLast }) {
+  const dispatch = useDispatch();
   return (
     <>
       <div className="d-flex flex-row flex-nowrap align-items-center gap-2">
@@ -24,7 +27,12 @@ function CartItem({ product, onDelete, onIncrement, onDecrement, isLast }) {
             >
               <span className="fw-bold">{product.title}</span>
             </Link>
-            <button className="btn text-danger p-0 m-0 " onClick={onDelete}>
+            <button
+              className="btn text-danger p-0 m-0 "
+              onClick={() => {
+                dispatch(DELETE(product.id));
+              }}
+            >
               <i className="fa-solid fa-trash"></i>
             </button>
           </div>
@@ -49,12 +57,19 @@ function CartItem({ product, onDelete, onIncrement, onDecrement, isLast }) {
                 className={
                   product.count == 1 ? "btn disabled border-0" : "btn border-0"
                 }
-                onClick={onDecrement}
+                onClick={() => {
+                  dispatch(DECREMENT(product));
+                }}
               >
                 <i className="fa-solid fa-minus"></i>
               </button>
               <span>{product.count}</span>
-              <button className="btn border-0" onClick={onIncrement}>
+              <button
+                className="btn border-0"
+                onClick={() => {
+                  dispatch(INCREMENT(product));
+                }}
+              >
                 <i className="fa-solid fa-plus"></i>
               </button>
             </div>

@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
@@ -9,8 +8,13 @@ import Loading from "../Shared/Loading";
 import Products from "../Shared/Products";
 import Reviews from "./Product Details Components/Reviews";
 import Details from "./Product Details Components/Details";
+import { useDispatch, useSelector } from "react-redux";
+import { ADD } from "../../features/cartSlice";
 
-function ProductDetails({ dispatch, cartItemsIds }) {
+function ProductDetails() {
+  const cart = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+
   const [product, setProduct] = useState({});
   const [similarProducts, setSimilarProducts] = useState([]);
   const [selectedImage, setSelectedImg] = useState("");
@@ -24,6 +28,11 @@ function ProductDetails({ dispatch, cartItemsIds }) {
       product.price -
       (product.discountPercentage * product.price) / 100
     ).toFixed(2);
+
+  const cartItemsIds = cart.reduce((prev, curr) => {
+    prev.push(curr.id);
+    return prev;
+  }, []);
 
   // get product
   useEffect(() => {
@@ -42,6 +51,20 @@ function ProductDetails({ dispatch, cartItemsIds }) {
 
   const handleImgClick = (e) => {
     setSelectedImg(e.target.src);
+  };
+
+  const handleAddToCart = (e) => {
+    const cartProduct = {
+      size: "Free",
+      count,
+      price: priceAfterDiscount,
+      id: product.id,
+      thumbnail: product.thumbnail,
+      title: product.title,
+      brand: product.brand,
+    };
+    dispatch(ADD(cartProduct));
+    e.target.className = "btn btn-dark px-5 py-2 rounded-5 col disabled";
   };
 
   return (
@@ -146,17 +169,7 @@ function ProductDetails({ dispatch, cartItemsIds }) {
                         ? "btn btn-dark px-5 py-2 rounded-5 col disabled"
                         : "btn btn-dark px-5 py-2 rounded-5 col"
                     }
-                    onClick={(e) => {
-                      dispatch({
-                        type: "ADD",
-                        product,
-                        count,
-                        priceAfterDiscount,
-                        size: "Free",
-                      });
-                      e.target.className =
-                        "btn btn-dark px-5 py-2 rounded-5 col disabled";
-                    }}
+                    onClick={handleAddToCart}
                   >
                     Add to Cart
                   </button>

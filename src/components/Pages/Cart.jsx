@@ -1,8 +1,10 @@
-/* eslint-disable react/prop-types */
 import EmptyCart from "./Cart Components/EmptyCart";
 import CartItem from "./Cart Components/CartItem";
+import { useSelector } from "react-redux";
 
-function Cart({ products, dispatch }) {
+function Cart() {
+  const products = useSelector((state) => state.cart);
+
   const total = products.reduce((total, curr) => {
     total += curr.price * curr.count;
     return Number(total.toFixed(2));
@@ -25,15 +27,6 @@ function Cart({ products, dispatch }) {
                     <CartItem
                       key={product.id}
                       product={product}
-                      onDelete={() => {
-                        dispatch({ type: "DELETE", product });
-                      }}
-                      onIncrement={() => {
-                        dispatch({ type: "INCREMENT", product });
-                      }}
-                      onDecrement={() => {
-                        dispatch({ type: "DECREMENT", product });
-                      }}
                       isLast={index + 1 === products.length}
                     />
                   ))}
