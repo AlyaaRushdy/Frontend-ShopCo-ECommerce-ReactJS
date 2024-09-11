@@ -4,14 +4,9 @@ const userSlice = createSlice({
   name: "user",
   initialState: {},
   reducers: {
-    addUser: (state, action) => {
-      state = action.payload;
-    },
-    isAuth: (state) => {
-      return Object.keys(state).length ? true : false;
-    },
+    addUser: (state, action) => action.payload,
   },
 });
 
-export const { addUser, isAuth } = userSlice.actions;
+export const { addUser } = userSlice.actions;
 export default userSlice.reducer;

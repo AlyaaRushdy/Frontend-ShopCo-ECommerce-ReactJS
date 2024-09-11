@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signIn } from "../../services/firebase.auth";
+import { useDispatch } from "react-redux";
+import { addUser } from "../../features/userSlice";
 import Joi from "joi";
 
 function Login() {
+  const dispatch = useDispatch();
   const [data, setData] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({ email: "", password: "" });
 
@@ -24,7 +27,6 @@ function Login() {
     const state = { ...data };
     state[e.target.id] = e.target.value;
     setData(state);
-    // console.log(state);
   };
 
   const handleSubmit = async (e) => {
@@ -39,7 +41,10 @@ function Login() {
       setErrors(newErrors);
     } else {
       setErrors({});
-      const user = await signIn(data.email, data.password);
+      const user = await signIn(data.email, data.password).then((user) => {
+        dispatch(addUser(user));
+        return user;
+      });
       if (user) navigate("/");
     }
   };

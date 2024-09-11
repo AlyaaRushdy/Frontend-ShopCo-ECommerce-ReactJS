@@ -1,15 +1,21 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signUp } from "../../services/firebase.auth";
+import { useDispatch } from "react-redux";
+import { addUser } from "../../features/userSlice";
 import Joi from "joi";
 
 function SignUp() {
+  const dispatch = useDispatch();
+
   const [data, setData] = useState({
+    fullName: "",
     email: "",
     password: "",
     repeatPassword: "",
   });
   const [errors, setErrors] = useState({
+    fullName: "",
     email: "",
     password: "",
     repeatPassword: "",
@@ -18,6 +24,7 @@ function SignUp() {
   const navigate = useNavigate();
 
   const schema = Joi.object({
+    fullName: Joi.string().required(),
     email: Joi.string()
       .email({ tlds: { allow: false } })
       .required(),
@@ -50,7 +57,12 @@ function SignUp() {
       setErrors(newErrors);
     } else {
       setErrors({});
-      const user = await signUp(data.email, data.password);
+      const user = await signUp(data.email, data.password, data.fullName).then(
+        (user) => {
+          dispatch(addUser(user));
+          return user;
+        }
+      );
       if (user) navigate("/");
     }
   };
@@ -91,6 +103,26 @@ function SignUp() {
               />
             </div>
           </div> */}
+          <div className="mb-3">
+            <label htmlFor="fullName" className="form-label">
+              Name
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="fullName"
+              value={data.fullName}
+              onChange={(e) => {
+                handleChange(e);
+              }}
+              required
+            />
+            {errors.fullName && (
+              <p className="alert alert-danger mt-2 px-3 py-2">
+                {errors.fullName}
+              </p>
+            )}
+          </div>
           <div className="mb-3">
             <label htmlFor="email" className="form-label">
               Email address
