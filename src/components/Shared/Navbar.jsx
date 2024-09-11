@@ -1,13 +1,24 @@
-/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
 import logo from "./../../assets/logo.png";
+import { signOut } from "../../services/firebase.auth";
+import { useDispatch, useSelector } from "react-redux";
+import { addUser } from "../../features/userSlice";
 
-function Navbar(props) {
+function Navbar() {
+  const { cart, user } = useSelector((state) => state);
+  const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = useState("");
 
+  const isAuth = Object.keys(user).length ? true : false;
   const navigate = useNavigate();
+
+  const itemsCount = cart.reduce((prev, curr) => {
+    prev += curr.count;
+    return prev;
+  }, 0);
+
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchQuery) {
@@ -15,10 +26,15 @@ function Navbar(props) {
       setSearchQuery("");
     }
   };
+
+  const handleSignout = (e) => {
+    e.preventDefault();
+    signOut().then(dispatch(addUser({})));
+  };
   return (
     <>
       <nav className="navbar navbar-expand-lg">
-        <div className="container py-2 d-flex justify-content-start  align-items-center gap-3">
+        <div className="container py-2 d-flex justify-content-start  align-items-center gap-2 gap-sm-3">
           <button
             className="navbar-toggler border-0 me-0 px-0"
             type="button"
@@ -86,11 +102,38 @@ function Navbar(props) {
             <NavLink className="position-relative" to={"/cart"}>
               <i className="fa-solid fa-cart-shopping fs-4 link-dark"></i>
               <span className="badge bg-primary position-absolute cart-count-badge">
-                {props.itemsCount}
+                {itemsCount}
               </span>
             </NavLink>
-            <NavLink className="ms-4" to={"/login"}>
+            <NavLink className="ms-3 ms-sm-4 btn-group" to={"/login"}>
               <i className="fa-solid fa-user fs-4 link-dark"></i>
+              {isAuth && (
+                <>
+                  <button
+                    type="button"
+                    className="btn btn-sm dropdown-toggle dropdown-toggle-split"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  ></button>
+                  <ul className="dropdown-menu dropdown-menu-end dropdown-menu-md-start">
+                    {user.displayName && (
+                      <li>
+                        <span className="dropdown-item-text disabled">
+                          Hi, {user.displayName}
+                        </span>
+                      </li>
+                    )}
+                    <li>
+                      <button
+                        className="dropdown-item text-danger"
+                        onClick={handleSignout}
+                      >
+                        log out
+                      </button>
+                    </li>
+                  </ul>
+                </>
+              )}
             </NavLink>
           </div>
         </div>
