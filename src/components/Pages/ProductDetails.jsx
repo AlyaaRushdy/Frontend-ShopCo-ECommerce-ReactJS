@@ -10,17 +10,18 @@ import Reviews from "./Product Details Components/Reviews";
 import Details from "./Product Details Components/Details";
 import { useDispatch, useSelector } from "react-redux";
 import { ADD } from "../../features/cartSlice";
+import Swal from "sweetalert2";
 
 function ProductDetails() {
-  const cart = useSelector((state) => state.cart);
+  const { cart, user } = useSelector((state) => state);
   const dispatch = useDispatch();
+  const isAuth = Object.keys(user).length ? true : false;
+  const { id } = useParams("id");
 
   const [product, setProduct] = useState({});
   const [similarProducts, setSimilarProducts] = useState([]);
   const [selectedImage, setSelectedImg] = useState("");
   const [count, setCount] = useState(1);
-
-  const { id } = useParams("id");
 
   const priceAfterDiscount =
     product.discountPercentage &&
@@ -54,17 +55,40 @@ function ProductDetails() {
   };
 
   const handleAddToCart = (e) => {
-    const cartProduct = {
-      size: "Free",
-      count,
-      price: priceAfterDiscount,
-      id: product.id,
-      thumbnail: product.thumbnail,
-      title: product.title,
-      brand: product.brand,
-    };
-    dispatch(ADD(cartProduct));
-    e.target.className = "btn btn-dark px-5 py-2 rounded-5 col disabled";
+    if (isAuth) {
+      const cartProduct = {
+        size: "Free",
+        count,
+        price: priceAfterDiscount,
+        id: product.id,
+        thumbnail: product.thumbnail,
+        title: product.title,
+        brand: product.brand,
+      };
+      dispatch(ADD(cartProduct));
+      e.target.className = "btn btn-dark px-5 py-2 rounded-5 col disabled";
+      Swal.fire({
+        title: "Added to Cart Successfully",
+        position: "top-right",
+        toast: true,
+        timer: 3000,
+        background: "rgb(209, 231, 221)",
+        color: "rgb(25, 135, 84)",
+        timerProgressBar: true,
+        showConfirmButton: false,
+      });
+    } else {
+      Swal.fire({
+        title: "please login first",
+        position: "top-right",
+        color: "rgb(220, 53, 69)",
+        background: "rgb(248, 215, 218)",
+        toast: true,
+        timer: 3000,
+        timerProgressBar: true,
+        showConfirmButton: false,
+      });
+    }
   };
 
   return (
