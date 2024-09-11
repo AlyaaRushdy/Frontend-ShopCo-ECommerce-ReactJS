@@ -1,6 +1,5 @@
 // hooks and libs
 import { Route, Routes } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 // components
 import SignUpNav from "./components/Shared/SignUpNav";
@@ -27,17 +26,10 @@ import {
 } from "./services/ProductsDummyJSONServices";
 
 function App() {
-  const cart = useSelector((state) => state.cart);
-
   return (
     <>
       <SignUpNav />
-      <Navbar
-        itemsCount={cart.reduce((prev, curr) => {
-          prev += curr.count;
-          return prev;
-        }, 0)}
-      />
+      <Navbar />
       <Routes>
         <Route element={<Home />} path="/" />
         <Route element={<SearchResults />} path="/search" />
