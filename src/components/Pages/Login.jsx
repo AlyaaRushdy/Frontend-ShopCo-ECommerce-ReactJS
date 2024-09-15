@@ -4,12 +4,14 @@ import { signIn } from "../../services/firebase.auth";
 import { useDispatch } from "react-redux";
 import { addUser } from "../../features/userSlice";
 import Joi from "joi";
+import InputGroup from "../Shared/InputGroup";
 
 function Login() {
-  const dispatch = useDispatch();
-  const [data, setData] = useState({ email: "", password: "" });
-  const [errors, setErrors] = useState({ email: "", password: "" });
+  const initState = { email: "", password: "" };
+  const [data, setData] = useState(initState);
+  const [errors, setErrors] = useState(initState);
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const schema = Joi.object({
@@ -52,47 +54,24 @@ function Login() {
     <>
       <div className="container pt-5">
         <form className="col-11 col-md-9 my-5 mx-auto">
-          <div className="mb-3">
-            <label htmlFor="email" className="form-label">
-              Email address
-            </label>
-            <input
-              type="email"
-              className="form-control"
-              id="email"
-              value={data.email}
-              onChange={(e) => {
-                handleChange(e);
-              }}
-              required
-            />
-            {errors.email && (
-              <p className="alert alert-danger mt-2 px-3 py-2">
-                {errors.email}
-              </p>
-            )}
-          </div>
-
-          <div className="mb-3">
-            <label htmlFor="password" className="form-label">
-              Password
-            </label>
-            <input
-              type="password"
-              className="form-control"
-              id="password"
-              value={data.password}
-              onChange={(e) => {
-                handleChange(e);
-              }}
-              required
-            />
-            {errors.password && (
-              <p className="alert alert-danger mt-2 px-3 py-2">
-                {errors.password}
-              </p>
-            )}
-          </div>
+          <InputGroup
+            data={data}
+            errors={errors}
+            handleChange={handleChange}
+            id={"email"}
+            name={"email"}
+            type={"email"}
+            labelText={"Email Address"}
+          />
+          <InputGroup
+            data={data}
+            errors={errors}
+            handleChange={handleChange}
+            id={"password"}
+            name={"password"}
+            type={"password"}
+            labelText={"Password"}
+          />
 
           <button
             type="submit"

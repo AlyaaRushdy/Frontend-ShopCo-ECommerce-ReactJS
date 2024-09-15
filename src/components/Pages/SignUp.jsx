@@ -4,23 +4,19 @@ import { signUp } from "../../services/firebase.auth";
 import { useDispatch } from "react-redux";
 import { addUser } from "../../features/userSlice";
 import Joi from "joi";
+import InputGroup from "../Shared/InputGroup";
 
 function SignUp() {
+  const initState = {
+    fullName: "",
+    email: "",
+    password: "",
+    repeatPassword: "",
+  };
+  const [data, setData] = useState(initState);
+  const [errors, setErrors] = useState(initState);
+
   const dispatch = useDispatch();
-
-  const [data, setData] = useState({
-    fullName: "",
-    email: "",
-    password: "",
-    repeatPassword: "",
-  });
-  const [errors, setErrors] = useState({
-    fullName: "",
-    email: "",
-    password: "",
-    repeatPassword: "",
-  });
-
   const navigate = useNavigate();
 
   const schema = Joi.object({
@@ -71,119 +67,42 @@ function SignUp() {
     <>
       <div className="container">
         <form className="col-11 col-md-9 my-5 mx-auto">
-          {/* <div className="mb-3 d-flex flex-column flex-sm-row  gap-3">
-            <div className="flex-grow-1">
-              <label htmlFor="fname" className="form-label">
-                First name
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="fname"
-                value={data.fname}
-                onChange={(e) => {
-                  handleChange(e);
-                }}
-                required
-              />
-            </div>
-            <div className="flex-grow-1">
-              <label htmlFor="lname" className="form-label">
-                Last name
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="lname"
-                value={data.lname}
-                onChange={(e) => {
-                  handleChange(e);
-                }}
-                required
-              />
-            </div>
-          </div> */}
-          <div className="mb-3">
-            <label htmlFor="fullName" className="form-label">
-              Name
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="fullName"
-              value={data.fullName}
-              onChange={(e) => {
-                handleChange(e);
-              }}
-              required
-            />
-            {errors.fullName && (
-              <p className="alert alert-danger mt-2 px-3 py-2">
-                {errors.fullName}
-              </p>
-            )}
-          </div>
-          <div className="mb-3">
-            <label htmlFor="email" className="form-label">
-              Email address
-            </label>
-            <input
-              type="email"
-              className="form-control"
-              id="email"
-              value={data.email}
-              onChange={(e) => {
-                handleChange(e);
-              }}
-              required
-            />
-            {errors.email && (
-              <p className="alert alert-danger mt-2 px-3 py-2">
-                {errors.email}
-              </p>
-            )}
-          </div>
-
-          <div className="mb-3">
-            <label htmlFor="password" className="form-label">
-              Password
-            </label>
-            <input
-              type="password"
-              className="form-control"
-              id="password"
-              value={data.password}
-              onChange={(e) => {
-                handleChange(e);
-              }}
-              required
-            />
-            {errors.password && (
-              <p className="alert alert-danger mt-2 px-3 py-2">
-                {errors.password}
-              </p>
-            )}
-          </div>
-          <div className="mb-3">
-            <label htmlFor="repeatPassword" className="form-label">
-              Repeat Password
-            </label>
-            <input
-              type="password"
-              className="form-control"
-              id="repeatPassword"
-              value={data.repeatPassword}
-              onChange={(e) => {
-                handleChange(e);
-              }}
-              required
-            />
-            {errors.repeatPassword && (
-              <p className="alert alert-danger mt-2 px-3 py-2">
-                {errors.repeatPassword}
-              </p>
-            )}
-          </div>
+          <InputGroup
+            data={data}
+            errors={errors}
+            handleChange={handleChange}
+            id={"fullName"}
+            name={"fullName"}
+            type={"text"}
+            labelText={"Full Name"}
+          />
+          <InputGroup
+            data={data}
+            errors={errors}
+            handleChange={handleChange}
+            id={"email"}
+            name={"email"}
+            type={"email"}
+            labelText={"Email Address"}
+          />
+          <InputGroup
+            data={data}
+            errors={errors}
+            handleChange={handleChange}
+            id={"password"}
+            name={"password"}
+            type={"password"}
+            labelText={"Password"}
+          />
+          <InputGroup
+            data={data}
+            errors={errors}
+            handleChange={handleChange}
+            id={"repeatPassword"}
+            name={"repeatPassword"}
+            type={"password"}
+            labelText={"Repeat Password"}
+          />
 
           <button
             type="submit"
