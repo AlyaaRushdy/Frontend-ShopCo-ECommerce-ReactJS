@@ -38,9 +38,15 @@ function ProductDetails() {
   // get product
   useEffect(() => {
     getProduct(id).then((res) => {
+      window.scrollTo(0, 0);
       setProduct(res);
       setSelectedImg(res.images[0]);
     });
+
+    return () => {
+      setCount(1);
+      setProduct([]);
+    };
   }, [id]);
 
   // similar products
@@ -48,6 +54,10 @@ function ProductDetails() {
     getProductsInCategory(product.category).then((res) =>
       setSimilarProducts(res.filter((p) => p.id !== product.id))
     );
+
+    return () => {
+      setSimilarProducts([]);
+    };
   }, [product]);
 
   const handleImgClick = (e) => {
