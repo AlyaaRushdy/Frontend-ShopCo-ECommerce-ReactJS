@@ -8,6 +8,7 @@ function SearchResults() {
   const location = useLocation();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     getSearchResaults(location.state).then((res) => {
       setProduct(res);
     });
