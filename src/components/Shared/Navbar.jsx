@@ -8,8 +8,9 @@ import { addUser } from "../../features/userSlice";
 
 function Navbar() {
   const { cart, user } = useSelector((state) => state);
-  const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = useState("");
+
+  const dispatch = useDispatch();
 
   const isAuth = Object.keys(user).length ? true : false;
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ function Navbar() {
   return (
     <>
       <nav className="navbar navbar-expand-lg">
-        <div className="container py-2 d-flex justify-content-start  align-items-center gap-2 gap-sm-3">
+        <div className="container py-2 d-flex justify-content-start align-items-center gap-2 gap-sm-3">
           <button
             className="navbar-toggler border-0 me-0 px-0"
             type="button"
@@ -46,9 +47,51 @@ function Navbar() {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
+
           <NavLink className="navbar-brand p-0 m-0" to={"/"}>
             <img src={logo} alt="SHOP.CO" className="align-top" />
           </NavLink>
+
+          <div className="ms-auto ms-lg-0 flex-grow-0 d-block d-lg-none">
+            <NavLink className="position-relative" to={"/cart"}>
+              <i className="fa-solid fa-cart-shopping fs-4 link-dark align-middle"></i>
+              <span className="badge bg-primary position-absolute cart-count-badge">
+                {itemsCount}
+              </span>
+            </NavLink>
+            <NavLink className="ms-3 ms-sm-4" to={"/login"}>
+              <i className="fa-solid fa-user fa-xl link-dark"></i>
+            </NavLink>
+            {isAuth && (
+              <>
+                <button
+                  type="button"
+                  className="btn btn-sm dropdown-toggle-split p-0 px-1 px-sm-2"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <i className="fa-solid fa-chevron-down align-bottom"></i>
+                </button>
+                <ul className="dropdown-menu dropdown-menu-end ">
+                  {user.displayName && (
+                    <li>
+                      <span className="dropdown-item-text disabled">
+                        Hi, {user.displayName}
+                      </span>
+                    </li>
+                  )}
+                  <li>
+                    <button
+                      className="dropdown-item text-danger"
+                      onClick={handleSignout}
+                    >
+                      log out
+                    </button>
+                  </li>
+                </ul>
+              </>
+            )}
+          </div>
 
           <div className="collapse navbar-collapse navbarSupportedContent flex-grow-0">
             <ul className="navbar-nav align-items-center">
@@ -98,43 +141,45 @@ function Navbar() {
             </form>
           </div>
 
-          <div className="ms-auto ms-lg-0 flex-grow-0">
+          <div className="ms-auto ms-lg-0 flex-grow-0 d-none d-lg-block">
             <NavLink className="position-relative" to={"/cart"}>
-              <i className="fa-solid fa-cart-shopping fs-4 link-dark"></i>
+              <i className="fa-solid fa-cart-shopping fs-4 link-dark align-middle"></i>
               <span className="badge bg-primary position-absolute cart-count-badge">
                 {itemsCount}
               </span>
             </NavLink>
-            <NavLink className="ms-3 ms-sm-4 btn-group" to={"/login"}>
-              <i className="fa-solid fa-user fs-4 link-dark"></i>
-              {isAuth && (
-                <>
-                  <button
-                    type="button"
-                    className="btn btn-sm dropdown-toggle dropdown-toggle-split"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  ></button>
-                  <ul className="dropdown-menu dropdown-menu-end dropdown-menu-md-start">
-                    {user.displayName && (
-                      <li>
-                        <span className="dropdown-item-text disabled">
-                          Hi, {user.displayName}
-                        </span>
-                      </li>
-                    )}
-                    <li>
-                      <button
-                        className="dropdown-item text-danger"
-                        onClick={handleSignout}
-                      >
-                        log out
-                      </button>
-                    </li>
-                  </ul>
-                </>
-              )}
+            <NavLink className="ms-3 ms-sm-4" to={"/login"}>
+              <i className="fa-solid fa-user fa-xl link-dark"></i>
             </NavLink>
+            {isAuth && (
+              <>
+                <button
+                  type="button"
+                  className="btn btn-sm dropdown-toggle-split p-0 px-1 px-sm-2"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <i className="fa-solid fa-chevron-down align-bottom"></i>
+                </button>
+                <ul className="dropdown-menu dropdown-menu-end ">
+                  {user.displayName && (
+                    <li>
+                      <span className="dropdown-item-text disabled">
+                        Hi, {user.displayName}
+                      </span>
+                    </li>
+                  )}
+                  <li>
+                    <button
+                      className="dropdown-item text-danger"
+                      onClick={handleSignout}
+                    >
+                      log out
+                    </button>
+                  </li>
+                </ul>
+              </>
+            )}
           </div>
         </div>
       </nav>
