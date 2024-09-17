@@ -5,6 +5,11 @@
 body {
   font-family: "Plus Jakarta Sans", system-ui !important;
 }
+#root {
+  display: flex;
+  flex-flow: column nowrap;
+  min-height: 100vh;
+}
 
 h1,
 h2,
@@ -29,6 +34,12 @@ h2,
   font-weight: 900 !important;
 }
 
+.product:hover img,
+.product:focus-within img {
+  scale: 1.15;
+  transition: scale 0.25s ease-in-out;
+}
+
 .cart-img {
   max-height: 100px;
 }
@@ -42,8 +53,19 @@ h2,
 .footer-newsletter {
   background: linear-gradient(to bottom, #fff 50%, var(--bs-gray-100) 50%);
 }
+
+@media screen and (max-width: 375px) {
+  .navbar-brand img {
+    width: 150px;
+  }
+}
 @media screen and (max-width: 540px) {
   .banner-h1 {
     font-size: 2.25rem;
+  }
+}
+@media screen and (max-width: 1200px) and (min-width: 992px) {
+  .banner-h1 {
+    font-size: 2.85rem;
   }
 }

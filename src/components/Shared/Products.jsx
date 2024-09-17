@@ -10,7 +10,7 @@ function Products({ products, children }) {
           {children}
           <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-4 row-gap-3">
             {products.map((product) => (
-              <div className="col" key={product.id}>
+              <div className="col product" key={product.id}>
                 <div className="d-flex flex-column gap-2">
                   <Link
                     to={`/product/${product.id}`}
