@@ -7,7 +7,9 @@ function Home() {
     <>
       <Banner />
       <Products products={allProducts}>
-        <h2 className="py-4 text-center">NEW ARRIVALS</h2>
+        <h2 className="py-4 text-center" id="newArrivals">
+          NEW ARRIVALS
+        </h2>
       </Products>
     </>
   );

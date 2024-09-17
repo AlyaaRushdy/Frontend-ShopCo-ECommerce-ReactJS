@@ -8,7 +8,7 @@ function Banner() {
       <section className="bg-body-tertiary">
         <div className="container">
           <div className="d-flex flex-wrap justify-content-between">
-            <div className="col-12 col-lg-6 my-5">
+            <div className="col-12 col-lg-6 mt-5">
               <h1 className="banner-h1">
                 FIND CLOTHES THAT MATCHES YOUR STYLE
               </h1>
@@ -17,7 +17,17 @@ function Banner() {
                 garments, designed to bring out your individuality and cater to
                 your sense of style.
               </p>
-              <Link className="btn btn-dark px-5 py-2 rounded-5" to="/">
+              <Link
+                className="btn btn-dark px-5 py-2 rounded-5 col-12 col-lg-auto"
+                to="/"
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.scrollTo({
+                    top: document.querySelector("#newArrivals").offsetTop,
+                    behavior: "smooth",
+                  });
+                }}
+              >
                 Shop Now
               </Link>
               <div className="my-4 row row-cols-3 g-0 align-items-center justify-content-center text-center row-gap-3 row-cols-md-5">
@@ -37,7 +47,7 @@ function Banner() {
                 </div>
               </div>
             </div>
-            <div className="col-12 col-lg-6">
+            <div className="col-12 col-lg-6 align-content-end">
               <img src={bannerImg} className="w-100" alt="banner" />
             </div>
           </div>
